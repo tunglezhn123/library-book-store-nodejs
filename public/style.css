@@ -1,0 +1,233 @@
+/* Thiết lập chung cho giao diện tối */
+body {
+    background-color: #121212;
+    /* Nền tối */
+    color: #E0E0E0;
+    /* Màu chữ sáng */
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* Header/Navigation */
+header {
+    background-color: #1E1E1E;
+    /* Nền header tối hơn */
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #4CAF50;
+    /* Màu xanh lá nổi bật */
+}
+
+.nav-menu a {
+    color: #B0B0B0;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    color: #4CAF50;
+}
+
+.user-actions button {
+    background-color: transparent;
+    border: 1px solid #4CAF50;
+    color: #4CAF50;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.user-actions .register-btn {
+    background-color: #4CAF50;
+    color: #121212;
+    border: none;
+}
+
+.user-actions .register-btn:hover {
+    background-color: #66BB6A;
+}
+
+/* Main Content */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 20px;
+}
+
+h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    border-left: 5px solid #4CAF50;
+    padding-left: 10px;
+}
+
+/* Bảng xếp hạng */
+.ranking-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #333;
+}
+
+.ranking-tabs button {
+    background: none;
+    border: none;
+    color: #B0B0B0;
+    font-size: 1rem;
+    padding: 5px 0;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: color 0.3s, border-bottom-color 0.3s;
+}
+
+.ranking-tabs button:hover,
+.ranking-tabs .active {
+    color: #4CAF50;
+    border-bottom-color: #4CAF50;
+}
+
+/* Danh sách sách */
+.book-list {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    /* Cho phép cuộn ngang nếu màn hình nhỏ */
+    padding-bottom: 20px;
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.book-list::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari */
+}
+
+.book-card {
+    position: relative;
+    flex-shrink: 0;
+    width: 180px;
+    /* Chiều rộng cố định cho bìa sách */
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+}
+
+.book-cover-wrapper {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.book-rank {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    background-color: #4CAF50;
+    color: #121212;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 50%;
+    z-index: 10;
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.book-cover {
+    width: 100%;
+    height: 280px;
+    /* Chiều cao cố định */
+    border-radius: 8px;
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.book-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #E0E0E0;
+    margin-top: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.member-tag {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #FDD835;
+    color: #333333;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    z-index: 10;
+}
+
+.category-label {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #E0E0E0;
+    text-align: left;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 768px) {
+    header {
+        padding: 1rem 1rem;
+    }
+
+    .nav-menu {
+        display: none;
+        /* Ẩn menu chính trên mobile để đơn giản */
+
+    }
+
+    .nav-container {
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+
+    .user-actions {
+        display: none;
+        /* Ẩn nút đăng ký/đăng nhập để đơn giản */
+    }
+
+    .book-card {
+        width: 140px;
+        /* Giảm kích thước bìa sách trên mobile */
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}
