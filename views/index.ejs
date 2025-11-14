@@ -105,7 +105,45 @@
                     </a>
                     <% } %>
 
+                        <section class="my-8">
+                            <div class="relative w-full overflow-hidden rounded-xl shadow-xl border border-gray-200">
+                                <div id="banner-slider" class="flex transition-transform duration-500 ease-in-out">
+                                    <div class="min-w-full">
+                                        <img src="/images/welcome.png" alt="Banner Chào Mừng"
+                                            class="w-full h-auto object-cover max-h-80 sm:max-h-96" />
+                                    </div>
+                                    <div class="min-w-full">
+                                        <img src="/images/price.png" alt="Banner Giá Cả"
+                                            class="w-full h-auto object-cover max-h-80 sm:max-h-96" />
+                                    </div>
+                                </div>
 
+                                <button id="prev-slide"
+                                    class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition z-20">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 19l-7-7 7-7"></path>
+                                    </svg>
+                                </button>
+                                <button id="next-slide"
+                                    class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition z-20">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </button>
+
+                                <div id="slide-indicators"
+                                    class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+                                    <button
+                                        class="w-3 h-3 bg-white rounded-full opacity-100 hover:opacity-100 transition duration-300"
+                                        data-slide-to="0"></button>
+                                    <button
+                                        class="w-3 h-3 bg-white rounded-full opacity-60 hover:opacity-100 transition duration-300"
+                                        data-slide-to="1"></button>
+                                </div>
+                            </div>
+                        </section>
                         <h2 class="text-3xl font-extrabold text-gray-900 mt-8 mb-4 border-b pb-2">
                             Bảng Xếp Hạng <span class="text-yellow-600"></span>
                         </h2>
@@ -202,8 +240,68 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Logic Javascript (nếu cần)
+            // Logic Javascript cũ:
             console.log('Trang chủ ArvaLibrary đã tải xong.');
+
+            // ------------------ LOGIC BANNER SLIDER ------------------
+            const slider = document.getElementById('banner-slider');
+            if (slider) { // Chỉ chạy nếu slider tồn tại
+                const slides = slider.children;
+                const totalSlides = slides.length;
+                const prevButton = document.getElementById('prev-slide');
+                const nextButton = document.getElementById('next-slide');
+                const indicators = document.getElementById('slide-indicators');
+                let currentSlide = 0;
+
+                /**
+                 * Hàm cập nhật vị trí slide
+                 * @param {number} index - Index của slide cần hiển thị
+                 */
+                function updateSlider(index) {
+                    // Đảm bảo index nằm trong khoảng [0, totalSlides - 1] (Xử lý vòng lặp)
+                    currentSlide = (index + totalSlides) % totalSlides;
+
+                    // Dịch chuyển container slider
+                    const offset = -currentSlide * 100;
+                    slider.style.transform = `translateX(${offset}%)`;
+
+                    // Cập nhật chỉ báo (dots)
+                    Array.from(indicators.children).forEach((dot, idx) => {
+                        dot.classList.remove('opacity-100');
+                        dot.classList.add('opacity-60');
+                        if (idx === currentSlide) {
+                            dot.classList.add('opacity-100');
+                        }
+                    });
+                }
+
+                // Khởi tạo ban đầu
+                updateSlider(0);
+
+                // Lắng nghe sự kiện click cho nút Next
+                nextButton.addEventListener('click', () => {
+                    updateSlider(currentSlide + 1);
+                });
+
+                // Lắng nghe sự kiện click cho nút Prev
+                prevButton.addEventListener('click', () => {
+                    updateSlider(currentSlide - 1);
+                });
+
+                // Lắng nghe sự kiện click cho các chỉ báo (dots)
+                Array.from(indicators.children).forEach((dot) => {
+                    dot.addEventListener('click', (e) => {
+                        const slideIndex = parseInt(e.target.getAttribute('data-slide-to'));
+                        updateSlider(slideIndex);
+                    });
+                });
+
+                // Tự động chuyển slide sau mỗi 5 giây
+                setInterval(() => {
+                    updateSlider(currentSlide + 1);
+                }, 10000); // 5000ms = 5 giây
+            }
+            // ------------------ KẾT THÚC LOGIC BANNER SLIDER ------------------
         });
     </script>
 </body>
